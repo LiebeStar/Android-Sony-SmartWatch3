@@ -21,10 +21,7 @@ public class ImuDataModule implements SensorEventListener {
     private ArrayList<Sensor> senALL;
     private SendMessageModule sendMessageModule;
 
-    private float[] mGyroValues;
     private float[] mAcceleration;
-    private float[] mGeomagnetic;
-    private float yaw, pitch, roll;
 
     // Constructor
     public ImuDataModule(Context context) {
@@ -39,29 +36,11 @@ public class ImuDataModule implements SensorEventListener {
 
         if(mySensor.getType() == Sensor.TYPE_ACCELEROMETER)
             mAcceleration = event.values;
-        if(mySensor.getType() == Sensor.TYPE_GYROSCOPE)
-            mGyroValues = event.values;
-        if(mySensor.getType() == Sensor.TYPE_MAGNETIC_FIELD)
-            mGeomagnetic = event.values;
 
-        if(mAcceleration != null && mGeomagnetic != null) {
-            float R[] = new float[9];
-            float I[] = new float[9];
-            boolean success = SensorManager.getRotationMatrix(R, I, mAcceleration, mGeomagnetic);
-            if(success) {
-                float orientation[] = new float[3];
-                SensorManager.getOrientation(R, orientation);
-                yaw     = orientation[0]; // Math.toDegrees(orientation[0]);
-                pitch   = orientation[1]; // Math.toDegrees(orientation[1]);
-                roll    = orientation[2]; // Math.toDegrees(orientation[2]);
-            }
-        }
-
-        if(mGyroValues !=null && mAcceleration != null &&  mGeomagnetic != null) {
+        if(mAcceleration != null) {
             sendIMUdata();
         }
     }
-
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
@@ -80,8 +59,6 @@ public class ImuDataModule implements SensorEventListener {
 
     private void addNeedSensor2SensorManager() {
         senALL.add(sensorManager.getDefaultSensor(TYPE_ACCELEROMETER));
-        senALL.add(sensorManager.getDefaultSensor(TYPE_GYROSCOPE));
-        senALL.add(sensorManager.getDefaultSensor(TYPE_MAGNETIC_FIELD));
     }
 
     public void registerAllSensorListener() {
@@ -101,11 +78,7 @@ public class ImuDataModule implements SensorEventListener {
         if((curTime - lastUpdateTime_Orientation) > updateTime_Orientation) {
             lastUpdateTime_Orientation = curTime;
 
-            String data = String.format("%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f,%.4f",
-                    yaw, pitch, roll,
-                    mAcceleration[0], mAcceleration[1], mAcceleration[2],
-                    mGyroValues[0], mGyroValues[1], mGyroValues[2]);
-
+            String data = String.format("%.4f,%.4f,%.4f", mAcceleration[0], mAcceleration[1], mAcceleration[2]);
             sendMessageModule.sendMessages(data);
         }
     }

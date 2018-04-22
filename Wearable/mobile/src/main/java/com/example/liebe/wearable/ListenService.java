@@ -46,35 +46,19 @@ public class ListenService extends WearableListenerService {
 
     private void prepareLeftHandIntent(Intent intent, String message) {
         String[] tokens = message.split(",");
-        if (tokens.length == 9) {
-            MainActivity.mWatchImuData.yawL = Float.parseFloat(tokens[0]);
-            MainActivity.mWatchImuData.pitchL = Float.parseFloat(tokens[1]);
-            MainActivity.mWatchImuData.rollL = Float.parseFloat(tokens[2]);
-
-            MainActivity.mWatchImuData.mAcceL[0] = Float.parseFloat(tokens[3]);
-            MainActivity.mWatchImuData.mAcceL[1] = Float.parseFloat(tokens[4]);
-            MainActivity.mWatchImuData.mAcceL[2] = Float.parseFloat(tokens[5]);
-
-            MainActivity.mWatchImuData.mGyroL[0] = Float.parseFloat(tokens[6]);
-            MainActivity.mWatchImuData.mGyroL[1] = Float.parseFloat(tokens[7]);
-            MainActivity.mWatchImuData.mGyroL[2] = Float.parseFloat(tokens[8]);
+        if (tokens.length == 3) {
+            MainActivity.mWatchImuData.mAcceL[0] = Float.parseFloat(tokens[0]);
+            MainActivity.mWatchImuData.mAcceL[1] = Float.parseFloat(tokens[1]);
+            MainActivity.mWatchImuData.mAcceL[2] = Float.parseFloat(tokens[2]);
         }
     }
 
     private void prepareRightHandIntent(Intent intent, String message) {
         String[] tokens = message.split(",");
-        if (tokens.length == 9) {
-            MainActivity.mWatchImuData.yawR = Float.parseFloat(tokens[0]);
-            MainActivity.mWatchImuData.pitchR = Float.parseFloat(tokens[1]);
-            MainActivity.mWatchImuData.rollR = Float.parseFloat(tokens[2]);
-
-            MainActivity.mWatchImuData.mAcceR[0] = Float.parseFloat(tokens[3]);
-            MainActivity.mWatchImuData.mAcceR[1] = Float.parseFloat(tokens[4]);
-            MainActivity.mWatchImuData.mAcceR[2] = Float.parseFloat(tokens[5]);
-
-            MainActivity.mWatchImuData.mGyroR[0] = Float.parseFloat(tokens[6]);
-            MainActivity.mWatchImuData.mGyroR[1] = Float.parseFloat(tokens[7]);
-            MainActivity.mWatchImuData.mGyroR[2] = Float.parseFloat(tokens[8]);
+        if (tokens.length == 3) {
+            MainActivity.mWatchImuData.mAcceR[0] = Float.parseFloat(tokens[0]);
+            MainActivity.mWatchImuData.mAcceR[1] = Float.parseFloat(tokens[1]);
+            MainActivity.mWatchImuData.mAcceR[2] = Float.parseFloat(tokens[2]);
         }
     }
     
