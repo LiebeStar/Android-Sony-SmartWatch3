@@ -33,7 +33,7 @@ public class FileManager {
 
         path = Environment.getExternalStoragePublicDirectory( Environment.DIRECTORY_DCIM ).getAbsolutePath().toString();
         fileName = nowTime + "_" + directLR + ".txt";
-        ofile = new File( path + "/TaiChi/" + fileName );
+        ofile = new File( path + "/" + fileName );
     }
 
     public void writeDataToFile( String data ) {
