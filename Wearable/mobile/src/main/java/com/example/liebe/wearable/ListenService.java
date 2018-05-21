@@ -32,13 +32,13 @@ public class ListenService extends WearableListenerService {
         Log.v(LOG_TAG, "DATA_PASSED <" + message + "> Send by Broadcast from " + nodeId);
 
         //Right hand
-        if(nodeId.equals("38787e1")) {
+        if(nodeId.equals("6e4f1f4e")) {
             prepareRightHandIntent(intent, message);
             sendBroadcast(intent);
         }
 
         //Left hand
-        if(nodeId.equals("d847716e")){
+        if(nodeId.equals("6ddcf37f")){
             prepareLeftHandIntent(intent, message);
             sendBroadcast(intent);
         }
